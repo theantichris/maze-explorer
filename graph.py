@@ -33,12 +33,14 @@ def build_excavation_site():
     ante_chamber = Vertex("ante-chamber")
     kings_room = Vertex("king's room")
     grand_gallery = Vertex("grand gallery")
+    treasure_room = Vertex("treasure room")
 
     # Add rooms to maze
     excavation_site.add_vertex(entrance)
     excavation_site.add_vertex(ante_chamber)
     excavation_site.add_vertex(kings_room)
     excavation_site.add_vertex(grand_gallery)
+    excavation_site.add_vertex(treasure_room)
 
     # Add paths between rooms
     excavation_site.add_edge(entrance, ante_chamber, 7)
@@ -46,6 +48,8 @@ def build_excavation_site():
     excavation_site.add_edge(kings_room, ante_chamber, 1)
     excavation_site.add_edge(grand_gallery, ante_chamber, 2)
     excavation_site.add_edge(grand_gallery, kings_room, 2)
+    excavation_site.add_edge(treasure_room, ante_chamber, 6)
+    excavation_site.add_edge(treasure_room, grand_gallery, 4)
 
     excavation_site.print_map()
 
