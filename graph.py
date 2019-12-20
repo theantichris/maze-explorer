@@ -25,24 +25,28 @@ class Graph:
             print("")
         print("")
 
-def build_graph():
-    graph = Graph()
+def build_excavation_site():
+    excavation_site = Graph()
 
     # Make rooms
     entrance = Vertex("entrance")
     ante_chamber = Vertex("ante-chamber")
     kings_room = Vertex("king's room")
+    grand_gallery = Vertex("grand gallery")
 
     # Add rooms to maze
-    graph.add_vertex(entrance)
-    graph.add_vertex(ante_chamber)
-    graph.add_vertex(kings_room)
+    excavation_site.add_vertex(entrance)
+    excavation_site.add_vertex(ante_chamber)
+    excavation_site.add_vertex(kings_room)
+    excavation_site.add_vertex(grand_gallery)
 
     # Add paths between rooms
-    graph.add_edge(entrance, ante_chamber, 7)
-    graph.add_edge(entrance, kings_room, 3)
-    graph.add_edge(kings_room, ante_chamber, 1)
+    excavation_site.add_edge(entrance, ante_chamber, 7)
+    excavation_site.add_edge(entrance, kings_room, 3)
+    excavation_site.add_edge(kings_room, ante_chamber, 1)
+    excavation_site.add_edge(grand_gallery, ante_chamber, 2)
+    excavation_site.add_edge(grand_gallery, kings_room, 2)
 
-    graph.print_map()
+    excavation_site.print_map()
 
-    return graph
+    return excavation_site

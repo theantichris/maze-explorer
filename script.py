@@ -1,4 +1,4 @@
-from graph import Graph, build_graph
+from graph import Graph, build_excavation_site
 from vertex import Vertex
 
-excavation_site = build_graph()
+excavation_site = build_excavation_site()
