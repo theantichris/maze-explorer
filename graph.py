@@ -27,6 +27,13 @@ class Graph:
 
 def build_graph():
     graph = Graph()
+
+    # Make rooms
+    entrance = Vertex("entrance")
+
+    # Add rooms to maze
+    graph.add_vertex(entrance)
+
     graph.print_map()
 
     return graph
