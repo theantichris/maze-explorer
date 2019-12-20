@@ -41,6 +41,7 @@ def build_graph():
     # Add paths between rooms
     graph.add_edge(entrance, ante_chamber, 7)
     graph.add_edge(entrance, kings_room, 3)
+    graph.add_edge(kings_room, ante_chamber, 1)
 
     graph.print_map()
 
