@@ -1,15 +1,15 @@
-from vertex import Vertex
+from room import Room
 
 class Graph:
     def __init__(self):
         self.graph_dict = {}
 
-    def add_vertex(self, vertex):
-        self.graph_dict[vertex.value] = vertex
+    def add_room(self, room):
+        self.graph_dict[room.name] = room
 
-    def add_edge(self, from_node, to_node, weight=0):
-        self.graph_dict[from_node.value].add_edge(to_node, weight)
-        self.graph_dict[to_node.value].add_edge(from_node, weight)
+    def add_path(self, from_room, to_room, weight=0):
+        self.graph_dict[from_room.name].add_path(to_room, weight)
+        self.graph_dict[to_room.name].add_path(from_room, weight)
 
     def explore(self):
         print("Exploring the graph...\n")
@@ -22,7 +22,7 @@ class Graph:
         while current_room_name != "treasure room":
             current_room = self.graph_dict[current_room_name]
             valid_choices = []
-            for connected_room, weight in current_room.edges.items():
+            for connected_room, weight in current_room.paths.items():
                 key = connected_room[0]
                 valid_choices.append(key)
                 print("enter {} for {}: {} cost".format(key, connected_room, weight))
@@ -34,10 +34,10 @@ class Graph:
             if choice not in valid_choices:
                 print("Please select from these letters: {}".format(valid_choices))
             else:
-                for key in current_room.edges.keys():
+                for key in current_room.paths.keys():
                     if key.startswith(choice):
-                        current_room_name = self.graph_dict[key].value
-                        path_total += current_room.edges[key]
+                        current_room_name = self.graph_dict[key].name
+                        path_total += current_room.paths[key]
 
                 print("\n*** You have chosen: {} ***\n".format(current_room_name))
 
@@ -49,9 +49,9 @@ class Graph:
 
         for key in self.graph_dict:
             print("{} connected to...".format(key))
-            vertex = self.graph_dict[key]
-            for adjacent_vertex, weight in vertex.edges.items():
-                print("=> {}: cost is {}".format(adjacent_vertex, weight))
+            room = self.graph_dict[key]
+            for connected_room, weight in room.paths.items():
+                print("=> {}: cost is {}".format(connected_room, weight))
             print("")
         print("")
 
@@ -59,27 +59,27 @@ def build_excavation_site():
     excavation_site = Graph()
 
     # Make rooms
-    entrance = Vertex("entrance")
-    ante_chamber = Vertex("ante-chamber")
-    kings_room = Vertex("king's room")
-    grand_gallery = Vertex("grand gallery")
-    treasure_room = Vertex("treasure room")
+    entrance = Room("entrance")
+    ante_chamber = Room("ante-chamber")
+    kings_room = Room("king's room")
+    grand_gallery = Room("grand gallery")
+    treasure_room = Room("treasure room")
 
     # Add rooms to maze
-    excavation_site.add_vertex(entrance)
-    excavation_site.add_vertex(ante_chamber)
-    excavation_site.add_vertex(kings_room)
-    excavation_site.add_vertex(grand_gallery)
-    excavation_site.add_vertex(treasure_room)
+    excavation_site.add_room(entrance)
+    excavation_site.add_room(ante_chamber)
+    excavation_site.add_room(kings_room)
+    excavation_site.add_room(grand_gallery)
+    excavation_site.add_room(treasure_room)
 
     # Add paths between rooms
-    excavation_site.add_edge(entrance, ante_chamber, 7)
-    excavation_site.add_edge(entrance, kings_room, 3)
-    excavation_site.add_edge(kings_room, ante_chamber, 1)
-    excavation_site.add_edge(grand_gallery, ante_chamber, 2)
-    excavation_site.add_edge(grand_gallery, kings_room, 2)
-    excavation_site.add_edge(treasure_room, ante_chamber, 6)
-    excavation_site.add_edge(treasure_room, grand_gallery, 4)
+    excavation_site.add_path(entrance, ante_chamber, 7)
+    excavation_site.add_path(entrance, kings_room, 3)
+    excavation_site.add_path(kings_room, ante_chamber, 1)
+    excavation_site.add_path(grand_gallery, ante_chamber, 2)
+    excavation_site.add_path(grand_gallery, kings_room, 2)
+    excavation_site.add_path(treasure_room, ante_chamber, 6)
+    excavation_site.add_path(treasure_room, grand_gallery, 4)
 
     excavation_site.print_map()
 
