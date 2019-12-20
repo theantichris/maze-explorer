@@ -1,5 +1,5 @@
-from graph import build_excavation_site
+from maze import build_maze
 from room import Room
 
-excavation_site = build_excavation_site()
+excavation_site = build_maze()
 excavation_site.explore()

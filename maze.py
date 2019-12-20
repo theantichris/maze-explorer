@@ -1,15 +1,15 @@
 from room import Room
 
-class Graph:
+class Maze:
     def __init__(self):
-        self.graph_dict = {}
+        self.rooms = {}
 
     def add_room(self, room):
-        self.graph_dict[room.name] = room
+        self.rooms[room.name] = room
 
     def add_path(self, from_room, to_room, weight=0):
-        self.graph_dict[from_room.name].add_path(to_room, weight)
-        self.graph_dict[to_room.name].add_path(from_room, weight)
+        self.rooms[from_room.name].add_path(to_room, weight)
+        self.rooms[to_room.name].add_path(from_room, weight)
 
     def explore(self):
         print("Exploring the graph...\n")
@@ -20,12 +20,12 @@ class Graph:
         print("\nStarting off at the {}".format(current_room_name))
 
         while current_room_name != "treasure room":
-            current_room = self.graph_dict[current_room_name]
+            current_room = self.rooms[current_room_name]
             valid_choices = []
             for connected_room, weight in current_room.paths.items():
-                key = connected_room[0]
-                valid_choices.append(key)
-                print("enter {} for {}: {} cost".format(key, connected_room, weight))
+                connected_room = connected_room[0]
+                valid_choices.append(connected_room)
+                print("enter {} for {}: {} cost".format(connected_room, connected_room, weight))
 
             print("You have accumulated: {} cost".format(path_total))
 
@@ -34,10 +34,10 @@ class Graph:
             if choice not in valid_choices:
                 print("Please select from these letters: {}".format(valid_choices))
             else:
-                for key in current_room.paths.keys():
-                    if key.startswith(choice):
-                        current_room_name = self.graph_dict[key].name
-                        path_total += current_room.paths[key]
+                for connected_room in current_room.paths.keys():
+                    if connected_room.startswith(choice):
+                        current_room_name = self.rooms[connected_room].name
+                        path_total += current_room.paths[connected_room]
 
                 print("\n*** You have chosen: {} ***\n".format(current_room_name))
 
@@ -47,16 +47,16 @@ class Graph:
     def print_map(self):
         print("\nMAZE LAYOUT\n")
 
-        for key in self.graph_dict:
+        for key in self.rooms:
             print("{} connected to...".format(key))
-            room = self.graph_dict[key]
+            room = self.rooms[key]
             for connected_room, weight in room.paths.items():
                 print("=> {}: cost is {}".format(connected_room, weight))
             print("")
         print("")
 
-def build_excavation_site():
-    excavation_site = Graph()
+def build_maze():
+    excavation_site = Maze()
 
     # Make rooms
     entrance = Room("entrance")
