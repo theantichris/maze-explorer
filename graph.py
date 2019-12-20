@@ -1,10 +1,10 @@
 from vertex import Vertex
 
 class Graph:
-    def __init(self):
+    def __init__(self):
         self.graph_dict = {}
 
-    def add_vertext(self, vertex):
+    def add_vertex(self, vertex):
         self.graph_dict[vertex.value] = vertex
 
     def add_edge(self, from_node, to_node, weight=0):
@@ -27,7 +27,6 @@ class Graph:
 
 def build_graph():
     graph = Graph()
-
     graph.print_map()
 
     return graph
