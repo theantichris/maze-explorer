@@ -30,9 +30,13 @@ def build_graph():
 
     # Make rooms
     entrance = Vertex("entrance")
+    ante_chamber = Vertex("ante-chamber")
+    kings_room = Vertex("king's room")
 
     # Add rooms to maze
     graph.add_vertex(entrance)
+    graph.add_vertex(ante_chamber)
+    graph.add_vertex(kings_room)
 
     graph.print_map()
 
